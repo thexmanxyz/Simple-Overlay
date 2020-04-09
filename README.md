@@ -21,8 +21,7 @@ This project contains a simple and full configurable jQuery plugin which loads a
    ```SCSS
    @import 'simple-overlay.scss';
    ```
-4. Initialize the plugin with basic values as follows
-   * **Plugin Initialization:**
+4. Initialize the plugin with basic values as follows:
    ```JS
    $('body').simpleOverlay({});
    ``` 
