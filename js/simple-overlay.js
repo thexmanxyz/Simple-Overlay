@@ -11,7 +11,7 @@
 *            automatically or by specific events.     *
 *                                                     *
 *   Author: Andreas Kar (thex) <andreas.kar@gmx.at>   *
-*   Repository: https://git.io/JvyqU                  *
+*   Repository: https://git.io/JvpkM                  *
 *                                                     *
 ******************************************************/
 
@@ -133,6 +133,7 @@
             }
         },
 
+        // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
         overlayOpen: function (opts) {
 
             // callback before overlay shown
@@ -152,6 +153,7 @@
             }
         },
 
+        // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
         overlayClose: function(opts) {
 
             // callback before overlay hidden
@@ -171,6 +173,7 @@
         },
 
         // set a cookie with specific value and expiry (in days)
+		// credits @ https://www.w3schools.com/js/js_cookies.asp
         setCookie: function(opts) {
             var d = new Date();
             var expires;
@@ -190,6 +193,7 @@
         },
 
         // determines if a cookie already exists, otherwise return empty string
+		// credits @ https://www.w3schools.com/js/js_cookies.asp
         getCookie: function(opts) {
             var name = opts.cookie.name + "=";
             var ca = document.cookie.split(';');
