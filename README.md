@@ -40,7 +40,7 @@ The plugin can be easily configured during the initialization and the following 
 - `openOnInit: true,` | Defines whether the overlay should be shown on plugin initialization.
 - `checkOnInit: true,` | Defines whether the cookie should be checked before the overlay is shown.
 - `background: '',` | Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
-- `style: 'black',` | Set the color style for the overlay. Supported values are 'black' / 'b' or 'white' / 'w'.
+- `style: 'black',` | Set the color style for the overlay. Supported values are `black` / `b` or `white` / `w`.
 - `containerId: 'simple-overlay',` | The id used for the overlay container during initialization and identification.
 - `contentContainerClass: 'simple-container',` | The class attached to the content container.
 - `content: '',` | The HTML appended to the content container. This is the text shown on the overlay.
