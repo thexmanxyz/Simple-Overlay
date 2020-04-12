@@ -55,27 +55,27 @@
     * clickEvents.close: Additional selectors used for click events that close the overlay.
     * cookie.name: This parameters contains the name used for creating the plugin cookie.
     * cookie.expiry: This parameters defines the expiry time (in days) for a cookie set by the plugin.
-    * attachContainer: Custom function which automatically attaches the overlay container (callback).
-    * initializeOpen: Custom function which controls the overlay auto loading behavior (callback).
-    * overlayOpen: Custom function which shows the overlay on open events (callback).
-    * overlayOpenCheck: Custom function which shows the overlay cookie-dependent on open events (callback).
-    * overlayClose: Custom function which hides the overlay on close events (callback).
-    * setCookie: Custom function which sets a cookie for the plugin (callback).
-    * getCookie: Custom function to retrieve a cookie set by the plugin (callback).
-    * triggerOpen: Custom function to define overlay open events by a given flag (callback).
-    * triggerCookieOpen: Custom function to define overlay cookie-dependent open events (callback).
-    * triggerAlwaysOpen: Custom function to define overlay always open events (callback).
-    * triggerClose: Custom function to define overlay close events (callback).
-    * beforeAttachContainer: Custom function called before container attached (callback).
-    * beforeOverlayOpen: Custom function called before overlay shown (callback).
-    * beforeOverlayClose: Custom function called before overlay hidden (callback).
-    * beforeSetCookie: Custom function called before cookie set (callback).
-    * beforeGetCookie: Custom function called before cookie retrieved (callback).
-    * afterAttachContainer: Custom function called after container attached (callback).
-    * afterOverlayOpen: Custom function called after overlay shown (callback).
-    * afterOverlayClose: Custom function called after overlay hidden (callback).
-    * afterSetCookie: Custom function called after cookie set (callback).
-    * afterGetCookie: Custom function called after cookie retrieved (callback).
+    * attachContainer: Function which automatically attaches the overlay container (callback).
+    * initializeOpen: Function which controls the overlay auto loading behavior (callback).
+    * overlayOpen: Function which shows the overlay on open events (callback).
+    * overlayOpenCheck: Function which shows the overlay cookie-dependent on open events (callback).
+    * overlayClose: Function which hides the overlay on close events (callback).
+    * setCookie: Function which sets a cookie for the plugin (callback).
+    * getCookie: Function to retrieve a cookie set by the plugin (callback).
+    * triggerOpen: Function to define overlay open events by a given flag (callback).
+    * triggerCookieOpen: Function to define overlay cookie-dependent open events (callback).
+    * triggerAlwaysOpen: Function to define overlay always open events (callback).
+    * triggerClose: Function to define overlay close events (callback).
+    * beforeAttachContainer: Function called before container attached (callback).
+    * beforeOverlayOpen: Function called before overlay shown (callback).
+    * beforeOverlayClose: Function called before overlay hidden (callback).
+    * beforeSetCookie: Function called before cookie set (callback).
+    * beforeGetCookie: Function called before cookie retrieved (callback).
+    * afterAttachContainer: Function called after container attached (callback).
+    * afterOverlayOpen: Function called after overlay shown (callback).
+    * afterOverlayClose: Function called after overlay hidden (callback).
+    * afterSetCookie: Function called after cookie set (callback).
+    * afterGetCookie: Function called after cookie retrieved (callback).
     *
     */
     $.fn.simpleOverlay.defaults = {
