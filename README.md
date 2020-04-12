@@ -36,7 +36,42 @@ This project contains a simple and full configurable jQuery plugin which loads a
 ## Configuration and Parameters
 The plugin can be easily configured during the initialization and the following parameters are currently available. The listing contains the parameters together with their default values.
 
-- `attachHtml: true,` | Defines whether the overlay HTML should be automatically attached on plugin initialization.
+- `attach: true,` | Defines whether the overlay HTML should be automatically attached on plugin initialization.
+- `openOnInit: true,` | Defines whether the overlay should be shown on plugin initialization.
+- `checkOnInit: true,` | Defines whether the cookie should be checked before the overlay is shown.
+- `background: '',` | Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
+- `style: 'black',` | Set the color style for the overlay. Supported values are 'black' / 'b' or 'white' / 'w'.
+- `containerId: 'simple-overlay',` | The id used for the overlay container during initialization and identification.
+- `contentContainerClass: 'simple-container',` | The class attached to the content container.
+- `content: '',` | The HTML appended to the content container. This is the text shown on the overlay.
+- `clickEvents: {` | Click events attachable by CSS selectors for different operations.
+    - `open: '',` | Additional selectors used for click events that cookie-dependent open the overlay.
+    - `alwaysOpen: '',` | Additional selectors used for click events that always open the overlay.
+    - `close: ''},` | Additional selectors used for click events that close the overlay.
+- `cookie {` | Cookie settings used for overlay control.
+    - `name: '',` | This parameters contains the name used for creating the plugin cookie.
+    - `expiry: ''},` | This parameters defines the expiry time (in days) for a cookie set by the plugin.
+- `attachContainer: function(opts){ ... },` | Custom function which automatically attaches the overlay container (callback).
+- `initializeOpen: function(opts){ ... },` | Custom function which controls the overlay auto loading behavior (callback).
+- `overlayOpen: function(opts){ ... },` | Custom function which shows the overlay on open events (callback).
+- `overlayOpenCheck: function(opts){ ... },` | Custom function which shows the overlay cookie-dependent on open events (callback).
+- `overlayClose: function(opts){ ... },` | Custom function which hides the overlay on close events (callback).
+- `setCookie: function(opts){ ... },` | Custom function which sets a cookie for the plugin (callback).
+- `getCookie: function(opts){ ... },` | Custom function to retrieve a cookie set by the plugin (callback).
+- `triggerOpen: function(opts){ ... },` | Custom function to define overlay open events by a given flag (callback).
+- `triggerCookieOpen: function(opts){ ... },` | Custom function to define overlay cookie-dependent open events (callback).
+- `triggerAlwaysOpen: function(opts){ ... },` | Custom function to define overlay always open events (callback).
+- `triggerClose: function(opts){ ... },` | Custom function to define overlay close events (callback).
+- `beforeAttachContainer: function(opts){ ... },` | Custom function called before container attached (callback).
+- `beforeOverlayOpen: function(opts){ ... },` | Custom function called before overlay shown (callback).
+- `beforeOverlayClose: function(opts){ ... },` | Custom function called before overlay hidden (callback).
+- `beforeSetCookie: function(opts){ ... },` | Custom function called before cookie set (callback).
+- `beforeGetCookie: function(opts){ ... },` | Custom function called before cookie retrieved (callback).
+- `afterAttachContainer: function(opts){ ... },` | Custom function called after container attached (callback).
+- `afterOverlayOpen: function(opts){ ... },` | Custom function called after overlay shown (callback).
+- `afterOverlayClose: function(opts){ ... },` | Custom function called after overlay hidden (callback).
+- `afterSetCookie: function(opts){ ... },` | Custom function called after cookie set (callback).
+- `afterGetCookie: function(opts){ ... },` | Custom function called after cookie retrieved (callback).
 
 ### Usage / Examples
 
