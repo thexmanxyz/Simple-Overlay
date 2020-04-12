@@ -42,17 +42,17 @@
 
    /* default values
     *
-    * attachHtml: Defines whether the overlay HTML should be automatically attached on plugin initialization.
-    * openOnInitialize: Defines whether the overlay should be shown on plugin initialization.
-    * cookieOnInitialize: Defines whether the cookie should be checked before the overlay is shown.
-	* background: Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
+    * attach: Defines whether the overlay HTML should be automatically attached on plugin initialization.
+    * openOnInit: Defines whether the overlay should be shown on plugin initialization.
+    * checkOnInit: Defines whether the cookie should be checked before the overlay is shown.
+    * background: Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
     * style: Set the color style for the overlay. Supported values are 'black' / 'b' or 'white' / 'w'.
     * containerId: The id used for the overlay container during initialization and identification.
     * contentContainerClass: The class attached to the content container.
     * content: The HTML appended to the content container. This is the text shown on the overlay.
-    * selectors.open: Additional selectors used for click events that cookie-dependent open the overlay.
-    * selectors.alwaysOpen: Additional selectors used for click events that always open the overlay.
-    * selectors.close: Additional selectors used for click events that close the overlay.
+    * clickEvents.open: Additional selectors used for click events that cookie-dependent open the overlay.
+    * clickEvents.alwaysOpen: Additional selectors used for click events that always open the overlay.
+    * clickEvents.close: Additional selectors used for click events that close the overlay.
     * cookie.name: This parameters contains the name used for creating the plugin cookie.
     * cookie.expiry: This parameters defines the expiry time (in days) for a cookie set by the plugin.
     * attachContainer: Custom function which automatically attaches the overlay container (callback).
@@ -79,15 +79,15 @@
     *
     */
     $.fn.simpleOverlay.defaults = {
-        attachHtml: true,
-        openOnInitialize: true,
-        cookieOnInitialize: true,
-		background: '',
+        attach: true,
+        openOnInit: true,
+        checkOnInit: true,
+        background: '',
         style: 'black',
         containerId: 'simple-overlay',
         contentContainerClass: 'simple-container',
         content: '',
-        selectors: {
+        clickEvents: {
             open: '',
             alwaysOpen: '',
             close: ''
@@ -103,7 +103,7 @@
             opts.beforeAttachContainer.call(opts, opts);
 
             // create and attach HTML only when attach required
-            if(opts.attachHtml) {
+            if(opts.attach) {
                 $(opts.container).each(function() {
                     var $ctn, $content, $closeBtn;
 
@@ -132,10 +132,10 @@
         initializeOpen: function(opts) {
     
             // show overlay only when required
-            if(opts.openOnInitialize) {
+            if(opts.openOnInit) {
                 
                 // should overlay be shown in dependence of cookie or not
-                if(opts.cookieOnInitialize) {
+                if(opts.checkOnInit) {
                     opts.overlayOpenCheck(opts);
                 } else {
                     opts.overlayOpen(opts);
@@ -145,26 +145,26 @@
 
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
         overlayOpen: function (opts) {
-			var $ctn = $('#' + opts.containerId);
-			var color = 0;
-			var background = '';
+            var $ctn = $('#' + opts.containerId);
+            var color = 0;
+            var background = '';
 
             // callback before overlay shown
             opts.beforeOverlayOpen.call(opts, opts);
 
-			// determine color for background coloring
+            // determine color for background coloring
             if(opts.style.startsWith('w')) {
-				color = 255;
+                color = 255;
             }
-			
-			// add background css and generate style
-			if(opts.background != '') {
-				$ctn.addClass('background-image');
-				background = 'background-image: linear-gradient(rgba(' + color + ', ' + color + ', ' + color + ',.6),rgba(' 
-								+ color + ',' + color + ',' + color + ',.6)),url(' + opts.background + ');'
-				
-			}
-			
+            
+            // add background css and generate style
+            if(opts.background != '') {
+                $ctn.addClass('background-image');
+                background = 'background-image: linear-gradient(rgba(' + color + ', ' + color + ', ' + color + ',.6),rgba(' 
+                                + color + ',' + color + ',' + color + ',.6)),url(' + opts.background + ');'
+                
+            }
+            
             // attach "display: block;" to show overlay and attach background if necessary
             $ctn.attr('style', 'display: block;' + background);
 
@@ -249,7 +249,7 @@
         triggerOpen: function(opts, always) {
 
             // build selector string (show overlay always or not)
-            var selectors = (always) ? opts.selectors.alwaysOpen : opts.selectors.open;
+            var selectors = (always) ? opts.clickEvents.alwaysOpen : opts.clickEvents.open;
 
             // define on click event which opens overlay (when there is a non empty selector)
             if(selectors != '') {
@@ -282,8 +282,8 @@
             var selectors = '#' + opts.containerId;
 
             // build selectors string
-            if(opts.selectors.close != '') {
-                selectors += (',' + opts.selectors.close);
+            if(opts.clickEvents.close != '') {
+                selectors += (',' + opts.clickEvents.close);
             }
 
             // define on click event which closes overlay
