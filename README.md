@@ -71,7 +71,7 @@ The plugin can be easily configured during the initialization and the following 
 - `afterOverlayOpen: function(opts){ ... },` | Function called after overlay shown (callback).
 - `afterOverlayClose: function(opts){ ... },` | Function called after overlay hidden (callback).
 - `afterSetCookie: function(opts){ ... },` | Function called after cookie set (callback).
-- `afterGetCookie: function(opts){ ... },` | Function called after cookie retrieved (callback).
+- `afterGetCookie: function(opts){ ... }` | Function called after cookie retrieved (callback).
 
 ### Usage / Examples
 
