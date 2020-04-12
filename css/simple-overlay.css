@@ -25,7 +25,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 100000;
   cursor: pointer;
   color: #fff;
   background: rgba(0, 0, 0, 0.85);
@@ -69,6 +69,12 @@
 .g-simple-overlay.overlay-white .close {
   color: #000;
 }
+
+.g-simple-overlay.background-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .g-simple-overlay div {
   width: 100%;
   text-align: center;

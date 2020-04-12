@@ -25,7 +25,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 100000;
   cursor: pointer;
   color: #fff;
   background: rgba(0,0,0,0.85);
@@ -76,6 +76,11 @@
     .close {
       color: #000;
     }
+  }
+  
+  &.background-image {
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   div {

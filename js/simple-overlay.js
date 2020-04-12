@@ -45,6 +45,8 @@
     * attachHtml: Defines whether the overlay HTML should be automatically attached on plugin initialization.
     * openOnInitialize: Defines whether the overlay should be shown on plugin initialization.
     * cookieOnInitialize: Defines whether the cookie should be checked before the overlay is shown.
+	* background: Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
+    * style: Set the color style for the overlay. Supported values are 'black' / 'b' or 'white' / 'w'.
     * containerId: The id used for the overlay container during initialization and identification.
     * contentContainerClass: The class attached to the content container.
     * content: The HTML appended to the content container. This is the text shown on the overlay.
@@ -80,6 +82,8 @@
         attachHtml: true,
         openOnInitialize: true,
         cookieOnInitialize: true,
+		background: '',
+        style: 'black',
         containerId: 'simple-overlay',
         contentContainerClass: 'simple-container',
         content: '',
@@ -104,8 +108,14 @@
                     var $ctn, $content, $closeBtn;
 
                     // build up HTML elements (container, content and close button)
-                    $ctn = $('<div>').attr('id', opts.containerId).attr('style', 'display: none;').addClass('g-' + opts.containerId)
-                    $content = $('<div>').addClass(contentContainerClass).html(opts.content);
+                    $ctn = $('<div>').attr('id', opts.containerId).attr('style', 'display: none;').addClass('g-' + opts.containerId);
+                    
+                    // change style of overlay in dependence of set parameter
+                    if(opts.style.startsWith('w')) {
+                        $ctn.addClass('overlay-white');
+                    }
+                    
+                    $content = $('<div>').addClass(opts.contentContainerClass).html(opts.content);
                     $closeBtn = $('<button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>');
 
                     // merge elements together and prepend to container
@@ -135,19 +145,35 @@
 
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
         overlayOpen: function (opts) {
+			var $ctn = $('#' + opts.containerId);
+			var color = 0;
+			var background = '';
 
             // callback before overlay shown
             opts.beforeOverlayOpen.call(opts, opts);
 
-            // attach "display: block;" to show overlay
-            $('#' + containerId).attr('style', 'display: block;');
+			// determine color for background coloring
+            if(opts.style.startsWith('w')) {
+				color = 255;
+            }
+			
+			// add background css and generate style
+			if(opts.background != '') {
+				$ctn.addClass('background-image');
+				background = 'background-image: linear-gradient(rgba(' + color + ', ' + color + ', ' + color + ',.6),rgba(' 
+								+ color + ',' + color + ',' + color + ',.6)),url(' + opts.background + ');'
+				
+			}
+			
+            // attach "display: block;" to show overlay and attach background if necessary
+            $ctn.attr('style', 'display: block;' + background);
 
             // callback after overlay shown
             opts.afterOverlayOpen.call(opts, opts);
         },
 
         overlayOpenCheck: function(opts) {
-            var cookie = opts.getCookie();
+            var cookie = opts.getCookie(opts);
             if (cookie == '') {  
                 opts.overlayOpen(opts);
             }
@@ -160,10 +186,10 @@
             opts.beforeOverlayClose.call(opts, opts);
 
             // hide container
-            $('#' + containerId).attr('style', 'display: none;');
+            $('#' + opts.containerId).attr('style', 'display: none;');
 
             // check if cookie set and set it if not defined
-            var cookie = opts.getCookie();
+            var cookie = opts.getCookie(opts);
             if (cookie == '') {  
                 opts.setCookie(opts);
             }
@@ -173,7 +199,7 @@
         },
 
         // set a cookie with specific value and expiry (in days)
-		// credits @ https://www.w3schools.com/js/js_cookies.asp
+        // credits @ https://www.w3schools.com/js/js_cookies.asp
         setCookie: function(opts) {
             var d = new Date();
             var expires;
@@ -189,11 +215,11 @@
             document.cookie = opts.cookie.name + '=true;' + expires + ';path=/';
 
             // callback after cookie set
-            opts.AfterSetCookie.call(opts, opts);
+            opts.afterSetCookie.call(opts, opts);
         },
 
         // determines if a cookie already exists, otherwise return empty string
-		// credits @ https://www.w3schools.com/js/js_cookies.asp
+        // credits @ https://www.w3schools.com/js/js_cookies.asp
         getCookie: function(opts) {
             var name = opts.cookie.name + "=";
             var ca = document.cookie.split(';');
@@ -242,12 +268,12 @@
         // add trigger event which opens overlay in dependence of cookie - can be user customized
         triggerCookieOpen: function(opts) {
             opts.triggerOpen(opts, false);
-        }
+        },
 
         // add trigger event which always opens overlay - can be user customized
         triggerAlwaysOpen: function(opts) {
             opts.triggerOpen(opts, true);
-        }
+        },
 
         // add trigger event which closes overlay - can be user customized
         triggerClose: function(opts) {
@@ -282,7 +308,7 @@
         beforeGetCookie: function(opts) {},
 
         // after container attached - can be user customized
-        afterAttachContainer: function(opts) {],
+        afterAttachContainer: function(opts) {},
 
         // after overlay shown - can be user customized
         afterOverlayOpen: function(opts) {},
