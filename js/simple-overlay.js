@@ -95,9 +95,9 @@
         contentContainerClass: 'simple-container',
         content: '',
         clickEvents: {
-            open: '',
-            alwaysOpen: '',
-            close: ''
+            open: [],
+            alwaysOpen: [],
+            close: []
         },
         cookie: {
             name: 'simple-overlay',
@@ -252,11 +252,11 @@
             return '';
         },
 
-        // add trigger event which opens overlay in dependence of flag - can be user customized
+        // add trigger event which opens overlay in dependence of flag
         triggerOpen: function(always) {
 
             // build selector string (show overlay always or not)
-            var selectors = (always) ? config.clickEvents.alwaysOpen : config.clickEvents.open;
+            var selectors = (always) ? config.clickEvents.alwaysOpen.join(',') : config.clickEvents.open.join(',');
 
             // define on click event which opens overlay (when there is a non empty selector)
             if(selectors != '') {
@@ -272,25 +272,25 @@
             }
         },
 
-        // add trigger event which opens overlay in dependence of cookie - can be user customized
+        // add trigger event which opens overlay in dependence of cookie
         triggerCookieOpen: function() {
             config.triggerOpen(false);
         },
 
-        // add trigger event which always opens overlay - can be user customized
+        // add trigger event which always opens overlay
         triggerAlwaysOpen: function() {
             config.triggerOpen(true);
         },
 
-        // add trigger event which closes overlay - can be user customized
+        // add trigger event which closes overlay
         triggerClose: function() {
 
             // default selector for close
             var selectors = '#' + config.containerId;
 
             // build selectors string
-            if(config.clickEvents.close != '') {
-                selectors += (',' + config.clickEvents.close);
+            if(config.clickEvents.close.length > 0) {
+                selectors += (',' + config.clickEvents.close.join(','));
             }
 
             // define on click event which closes overlay
@@ -299,37 +299,37 @@
             });
         },
         
-        // add custom trigger events - can be user customized
+        // add custom trigger events
         triggerCustom: function() {},
 
-        // before container attached - can be user customized
+        // before container attached
         beforeAttachContainer: function() {},
 
-        // before overlay shown - can be user customized
+        // before overlay shown
         beforeOverlayOpen: function() {},
 
-        // before overlay hidden - can be user customized
+        // before overlay hidden
         beforeOverlayClose: function() {},
 
-        // before cookie set - can be user customized
+        // before cookie set
         beforeSetCookie: function() {},
 
-        // before cookie retrieved - can be user customized
+        // before cookie retrieved
         beforeGetCookie: function() {},
 
-        // after container attached - can be user customized
+        // after container attached
         afterAttachContainer: function() {},
 
-        // after overlay shown - can be user customized
+        // after overlay shown
         afterOverlayOpen: function() {},
 
-        // after overlay hidden - can be user customized
+        // after overlay hidden
         afterOverlayClose: function() {},
 
-        // after cookie set - can be user customized
+        // after cookie set
         afterSetCookie: function() {},
 
-        // after cookie retrieved - can be user customized
+        // after cookie retrieved
         afterGetCookie: function() {},
     };
 

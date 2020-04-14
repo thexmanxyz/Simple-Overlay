@@ -45,9 +45,9 @@ The plugin can be easily configured during the initialization and the following 
 - `contentContainerClass: 'simple-container',` | The class attached to the content container.
 - `content: '',` | The HTML appended to the content container. This is the text shown on the overlay.
 - `clickEvents: {` | Click events attachable by CSS selectors for different operations.
-    - `open: '',` | Additional selectors used for click events that cookie-dependent open the overlay.
-    - `alwaysOpen: '',` | Additional selectors used for click events that always open the overlay.
-    - `close: ''},` | Additional selectors used for click events that close the overlay.
+    - `open: [],` | Additional selectors used for click events that cookie-dependent open the overlay.
+    - `alwaysOpen: [],` | Additional selectors used for click events that always open the overlay.
+    - `close: []},` | Additional selectors used for click events that close the overlay.
 - `cookie {` | Cookie settings used for overlay control.
     - `name: '',` | This parameters contains the name used for creating the plugin cookie.
     - `expiry: ''},` | This parameters defines the expiry time (in days) for a cookie set by the plugin.
