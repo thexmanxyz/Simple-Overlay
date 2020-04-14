@@ -175,7 +175,6 @@ But remember that in this case it is not necessary to initialize the plugin with
 * custom event options
   * define custom click events with selectors
   * or attach custom event triggers `triggerCustom(...)`
-
 * fully customizable through different callback methods at important execution points
 
 ## Future Tasks
