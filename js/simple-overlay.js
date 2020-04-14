@@ -17,27 +17,33 @@
 
 (function( $ ) {
 
+    // all configurations
+    var config;
+
     // initialize plugin and create events(s)
     $.fn.simpleOverlay = function(options) {
-        var opts = $.extend(true, {}, $.fn.simpleOverlay.defaults, options);
+        config = $.extend(true, {}, $.fn.simpleOverlay.defaults, options);
 
         // set containers where the plugin should be attached
-        opts.container = this;
+        config.container = this;
 
         // attach container with JS
-        opts.attachContainer(opts);
+        config.attachContainer();
 
         // handle overlay open on initialize
-        opts.initializeOpen(opts);
+        config.initializeOpen();
 
         // add trigger for overlay close
-        opts.triggerClose(opts);
+        config.triggerClose();
 
         // add trigger for overlay cookie open
-        opts.triggerCookieOpen(opts);
+        config.triggerCookieOpen();
 
-        // add triger for overlay always open
-        opts.triggerAlwaysOpen(opts);
+        // add trigger for overlay always open
+        config.triggerAlwaysOpen();
+        
+        // add custom triggers
+        config.triggerCustom();
     };
 
    /* default values
@@ -66,6 +72,7 @@
     * triggerCookieOpen: Function to define overlay cookie-dependent open events (callback).
     * triggerAlwaysOpen: Function to define overlay always open events (callback).
     * triggerClose: Function to define overlay close events (callback).
+    * triggerCustom: Function to define custom trigger events (callback).
     * beforeAttachContainer: Function called before container attached (callback).
     * beforeOverlayOpen: Function called before overlay shown (callback).
     * beforeOverlayClose: Function called before overlay hidden (callback).
@@ -97,25 +104,25 @@
             expiry: 30,
         },
 
-        attachContainer: function(opts) {
+        attachContainer: function() {
 
             // callback before container attached
-            opts.beforeAttachContainer.call(opts, opts);
+            config.beforeAttachContainer.call(config);
 
             // create and attach HTML only when attach required
-            if(opts.attach) {
-                $(opts.container).each(function() {
+            if(config.attach) {
+                $(config.container).each(function() {
                     var $ctn, $content, $closeBtn;
 
                     // build up HTML elements (container, content and close button)
-                    $ctn = $('<div>').attr('id', opts.containerId).attr('style', 'display: none;').addClass('g-' + opts.containerId);
+                    $ctn = $('<div>').attr('id', config.containerId).attr('style', 'display: none;').addClass('g-' + config.containerId);
                     
                     // change style of overlay in dependence of set parameter
-                    if(opts.style.startsWith('w')) {
+                    if(config.style.startsWith('w')) {
                         $ctn.addClass('overlay-white');
                     }
                     
-                    $content = $('<div>').addClass(opts.contentContainerClass).html(opts.content);
+                    $content = $('<div>').addClass(config.contentContainerClass).html(config.content);
                     $closeBtn = $('<button type="button" class="close" aria-label="Close"><span aria-hidden="true">×</span>');
 
                     // merge elements together and prepend to container
@@ -126,42 +133,42 @@
             }
 
             // calback after container attached
-            opts.afterAttachContainer.call(opts, opts);
+            config.afterAttachContainer.call(config);
         },
         
-        initializeOpen: function(opts) {
+        initializeOpen: function() {
     
             // show overlay only when required
-            if(opts.openOnInit) {
+            if(config.openOnInit) {
                 
                 // should overlay be shown in dependence of cookie or not
-                if(opts.checkOnInit) {
-                    opts.overlayOpenCheck(opts);
+                if(config.checkOnInit) {
+                    config.overlayOpenCheck();
                 } else {
-                    opts.overlayOpen(opts);
+                    config.overlayOpen();
                 }
             }
         },
 
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
-        overlayOpen: function (opts) {
-            var $ctn = $('#' + opts.containerId);
+        overlayOpen: function () {
+            var $ctn = $('#' + config.containerId);
             var color = 0;
             var background = '';
 
             // callback before overlay shown
-            opts.beforeOverlayOpen.call(opts, opts);
+            config.beforeOverlayOpen.call(config);
 
             // determine color for background coloring
-            if(opts.style.startsWith('w')) {
+            if(config.style.startsWith('w')) {
                 color = 255;
             }
             
             // add background css and generate style
-            if(opts.background != '') {
+            if(config.background != '') {
                 $ctn.addClass('background-image');
                 background = 'background-image: linear-gradient(rgba(' + color + ', ' + color + ', ' + color + ',.6),rgba(' 
-                                + color + ',' + color + ',' + color + ',.6)),url(' + opts.background + ');'
+                                + color + ',' + color + ',' + color + ',.6)),url(' + config.background + ');'
                 
             }
             
@@ -169,63 +176,63 @@
             $ctn.attr('style', 'display: block;' + background);
 
             // callback after overlay shown
-            opts.afterOverlayOpen.call(opts, opts);
+            config.afterOverlayOpen.call(config);
         },
 
-        overlayOpenCheck: function(opts) {
-            var cookie = opts.getCookie(opts);
+        overlayOpenCheck: function() {
+            var cookie = config.getCookie();
             if (cookie == '') {  
-                opts.overlayOpen(opts);
+                config.overlayOpen();
             }
         },
 
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
-        overlayClose: function(opts) {
+        overlayClose: function() {
 
             // callback before overlay hidden
-            opts.beforeOverlayClose.call(opts, opts);
+            config.beforeOverlayClose.call(config);
 
             // hide container
-            $('#' + opts.containerId).attr('style', 'display: none;');
+            $('#' + config.containerId).attr('style', 'display: none;');
 
             // check if cookie set and set it if not defined
-            var cookie = opts.getCookie(opts);
+            var cookie = config.getCookie();
             if (cookie == '') {  
-                opts.setCookie(opts);
+                config.setCookie();
             }
 
             // callback after overlay hidden
-            opts.afterOverlayClose.call(opts, opts);
+            config.afterOverlayClose.call(config);
         },
 
         // set a cookie with specific value and expiry (in days)
         // credits @ https://www.w3schools.com/js/js_cookies.asp
-        setCookie: function(opts) {
+        setCookie: function() {
             var d = new Date();
             var expires;
 
             // callback before cookie set
-            opts.beforeSetCookie.call(opts, opts);
+            config.beforeSetCookie.call(config);
 
             // calculate expiry time and create string
-            d.setTime(d.getTime() + (opts.cookie.expiry * 24 * 60 * 60 * 1000));
+            d.setTime(d.getTime() + (config.cookie.expiry * 24 * 60 * 60 * 1000));
             expires = "expires="+d.toUTCString();
 
             // set cookie with expires
-            document.cookie = opts.cookie.name + '=true;' + expires + ';path=/';
+            document.cookie = config.cookie.name + '=true;' + expires + ';path=/';
 
             // callback after cookie set
-            opts.afterSetCookie.call(opts, opts);
+            config.afterSetCookie.call(config);
         },
 
         // determines if a cookie already exists, otherwise return empty string
         // credits @ https://www.w3schools.com/js/js_cookies.asp
-        getCookie: function(opts) {
-            var name = opts.cookie.name + "=";
+        getCookie: function() {
+            var name = config.cookie.name + "=";
             var ca = document.cookie.split(';');
 
             // callback before cookie retrieved
-            opts.beforeGetCookie.call(opts, opts);
+            config.beforeGetCookie.call(config);
 
             for(var i = 0; i < ca.length; i++) {
                 var c = ca[i];
@@ -235,21 +242,21 @@
                 if (c.indexOf(name) == 0) {
 
                     // callback after cookie retrieved
-                    opts.afterGetCookie.call(opts, opts);
+                    config.afterGetCookie.call(config);
                     return c.substring(name.length, c.length);
                 }
             }
 
             // callback after cookie retrieved
-            opts.afterGetCookie.call(opts, opts);
+            config.afterGetCookie.call(config);
             return '';
         },
 
         // add trigger event which opens overlay in dependence of flag - can be user customized
-        triggerOpen: function(opts, always) {
+        triggerOpen: function(always) {
 
             // build selector string (show overlay always or not)
-            var selectors = (always) ? opts.clickEvents.alwaysOpen : opts.clickEvents.open;
+            var selectors = (always) ? config.clickEvents.alwaysOpen : config.clickEvents.open;
 
             // define on click event which opens overlay (when there is a non empty selector)
             if(selectors != '') {
@@ -257,70 +264,73 @@
 
                     // decide whether overlay should be shown in dependence of cookie or not
                     if(always) {
-                        opts.overlayOpen(opts);
+                        config.overlayOpen();
                     } else {
-                        opts.overlayOpenCheck(opts);
+                        config.overlayOpenCheck();
                     }
                 });
             }
         },
 
         // add trigger event which opens overlay in dependence of cookie - can be user customized
-        triggerCookieOpen: function(opts) {
-            opts.triggerOpen(opts, false);
+        triggerCookieOpen: function() {
+            config.triggerOpen(false);
         },
 
         // add trigger event which always opens overlay - can be user customized
-        triggerAlwaysOpen: function(opts) {
-            opts.triggerOpen(opts, true);
+        triggerAlwaysOpen: function() {
+            config.triggerOpen(true);
         },
 
         // add trigger event which closes overlay - can be user customized
-        triggerClose: function(opts) {
+        triggerClose: function() {
 
             // default selector for close
-            var selectors = '#' + opts.containerId;
+            var selectors = '#' + config.containerId;
 
             // build selectors string
-            if(opts.clickEvents.close != '') {
-                selectors += (',' + opts.clickEvents.close);
+            if(config.clickEvents.close != '') {
+                selectors += (',' + config.clickEvents.close);
             }
 
             // define on click event which closes overlay
             $(selectors).click(function() {
-                opts.overlayClose(opts);
+                config.overlayClose();
             });
         },
+        
+        // add custom trigger events - can be user customized
+        triggerCustom: function() {},
 
         // before container attached - can be user customized
-        beforeAttachContainer: function(opts) {},
+        beforeAttachContainer: function() {},
 
         // before overlay shown - can be user customized
-        beforeOverlayOpen: function(opts) {},
+        beforeOverlayOpen: function() {},
 
         // before overlay hidden - can be user customized
-        beforeOverlayClose: function(opts) {},
+        beforeOverlayClose: function() {},
 
         // before cookie set - can be user customized
-        beforeSetCookie: function(opts) {},
+        beforeSetCookie: function() {},
 
         // before cookie retrieved - can be user customized
-        beforeGetCookie: function(opts) {},
+        beforeGetCookie: function() {},
 
         // after container attached - can be user customized
-        afterAttachContainer: function(opts) {},
+        afterAttachContainer: function() {},
 
         // after overlay shown - can be user customized
-        afterOverlayOpen: function(opts) {},
+        afterOverlayOpen: function() {},
 
         // after overlay hidden - can be user customized
-        afterOverlayClose: function(opts) {},
+        afterOverlayClose: function() {},
 
         // after cookie set - can be user customized
-        afterSetCookie: function(opts) {},
+        afterSetCookie: function() {},
 
         // after cookie retrieved - can be user customized
-        afterGetCookie: function(opts) {},
+        afterGetCookie: function() {},
     };
 
 })( jQuery );
