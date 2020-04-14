@@ -76,7 +76,7 @@ The plugin can be easily configured during the initialization and the following 
 
 ### Usage / Examples
 
-The following example demonstrates the automatic attachment of the necessary HTML markup. In this case you can omit the above HTML completely. Everything is handled by the plugin.
+The following example demonstrates the automatic attachment of the necessary HTML markup. In this case you can omit the manual insertion of HTML markup completely. Everything is handled by the plugin.
 
 ```Javascript
 $('body').simpleOverlay({
