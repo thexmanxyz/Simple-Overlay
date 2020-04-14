@@ -151,7 +151,7 @@ $('body').simpleOverlay({
 
 ### Manual Container Background
 
-When necessary it is possible to define the overlay background image within your stylesheet with the following CSS rules:
+When necessary, the overlay background image can also be defined or customized in your stylesheet with the following CSS rules:
 
 ```CSS
 .simple-overlay {
@@ -174,7 +174,7 @@ But remember that in this case it is not necessary to initialize the plugin with
   * cookie expiry and cookie creation can be customized
 * custom event options
   * define custom click events with selectors
-  * or attach custom event triggers `triggerCustom(...)`
+  * or attach custom event triggers e.g. with `triggerCustom(...)`
 * fully customizable through different callback methods at important execution points
 
 ## Future Tasks
