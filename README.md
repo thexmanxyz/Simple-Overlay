@@ -6,7 +6,7 @@ This project contains a simple and full configurable jQuery plugin that loads a 
 * jQuery core library
 
 ## Download / Installation
-1. [Download v1.0.0](https://github.com/thexmanxyz/Simple-Overlay/archive/v1.0.0.zip) of Simple Overlay
+1. [Download v1.0.1](https://github.com/thexmanxyz/Simple-Overlay/archive/v1.0.1.zip) of Simple Overlay
 2. Extract the files and copy them to your website folder
 3. Define the CSS and JS resource files in your HTML page. You can also place the `<script>` tag after your `<body>` content. Basic resource import example:
    * **JS:**
