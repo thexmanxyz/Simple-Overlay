@@ -78,7 +78,7 @@ The plugin can be easily configured during the initialization and the following 
 You can also attach the container yourself and adjust the HTML markup in a way you like it. The example below shows a simple plugin generated overlay with a custom background. But you can also omit the `style` attribute completely if don't need a `background-image`.
 
 ```HTML
-<div id="simple-overlay" style="background-image: linear-gradient(rgba(255, 255, 255,.6),rgba(255,255,255,.6)),url(img/your_image.svg);" class="simple-overlay background-image">
+<div id="simple-overlay" style="background-image: linear-gradient(rgba(0, 0, 0,.6),rgba(0,0,0,.6)),url(img/your_image.svg);" class="simple-overlay background-image">
   <div class="simple-container">I'm demonstrating the overlay content!</div>
   <button type="button" class="close" aria-label="Close">
     <span aria-hidden="true">×</span>
@@ -107,11 +107,13 @@ $('body').simpleOverlay({
 
 You can define the overlay background within your stylesheet with the following CSS:
 
+```CSS
 .simple-overlay {
   background-repeat: no-repeat;
   background-size: cover;
   background-image: linear-gradient(rgba(255, 255, 255,.6),rgba(255,255,255,.6)),url(img/your_image.svg);
 }
+```
 
 But remember that in this case it is not necessary to initialize the plugin witht the `background` parameter.
 
