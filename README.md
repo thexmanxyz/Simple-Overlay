@@ -81,7 +81,7 @@ The following example demonstrates the automatic attachment of the necessary HTM
 ```Javascript
 $('body').simpleOverlay({
   background: 'img/your_image.svg',
-  content: 'I'm demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!'
 });
 ```
 
@@ -89,7 +89,7 @@ Sometimes you may want that the overlay is triggered by a certain click event an
 
 ```Javascript
 $('body').simpleOverlay({
-  content: 'I'm demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!'
   clickEvent: {
     open: ['.your_selector']
   }
@@ -102,7 +102,7 @@ In the above example the overlay will only be shown on click when the user not a
 $('body').simpleOverlay({
   /* checkOnInit: false, // you can omit the cookie check on init as well */
   /* openOnInit: false, // or you can completely hide the overlay on init */
-  content: 'I'm demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!'
   clickEvent: {
     alwaysOpen: ['.your_selector']
   }
@@ -113,7 +113,7 @@ The code comments demonstrate how you can control the initialization behavior of
 
 ```Javascript
 $('body').simpleOverlay({
-  content: 'I'm demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!'
   cookie: {
     expiry: 7
   }
@@ -125,7 +125,7 @@ You can also attach the container yourself and adjust the HTML markup in a way y
 
 ```HTML
 <div id="simple-overlay" style="background-image: linear-gradient(rgba(0, 0, 0,.6),rgba(0,0,0,.6)), url(img/your_image.svg);" class="simple-overlay background-image">
-  <div class="simple-container">I'm demonstrating the overlay content!</div>
+  <div class="simple-container">I am demonstrating the overlay content!</div>
   <button type="button" class="close" aria-label="Close">
     <span aria-hidden="true">×</span>
   </button>
