@@ -3,7 +3,7 @@
 *   Simple Overlay - jQuery Plugin                    *
 *                                                     *
 *   Purpose: This project contains a simple and full  *
-*            configurable jQuery plugin which loads   *
+*            configurable jQuery plugin that loads    *
 *            a cookie-controlled overlay on a page    *
 *            which can also only be shown once        *
 *            within a specific period. The loading    *
@@ -16,9 +16,9 @@
 ******************************************************/
 
 /* credits @ https://www.w3schools.com/howto/howto_css_overlay.asp */
-.g-simple-overlay {
+.simple-overlay {
   position: fixed;
-  display: none;
+  display: block;
   width: 100%;
   height: 100%;
   top: 0;
@@ -29,6 +29,10 @@
   cursor: pointer;
   color: #fff;
   background: rgba(0,0,0,0.85);
+  
+  &.simple-hide {
+    display: none;
+  }
   
   .simple-container {
     position: relative;

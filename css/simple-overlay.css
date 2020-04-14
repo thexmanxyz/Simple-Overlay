@@ -3,7 +3,7 @@
 *   Simple Overlay - jQuery Plugin                    *
 *                                                     *
 *   Purpose: This project contains a simple and full  *
-*            configurable jQuery plugin which loads   *
+*            configurable jQuery plugin that loads    *
 *            a cookie-controlled overlay on a page    *
 *            which can also only be shown once        *
 *            within a specific period. The loading    *
@@ -16,9 +16,9 @@
 ******************************************************/
 
 /* credits @ https://www.w3schools.com/howto/howto_css_overlay.asp */
-.g-simple-overlay {
+.simple-overlay {
   position: fixed;
-  display: none;
+  display: block;
   width: 100%;
   height: 100%;
   top: 0;
@@ -30,7 +30,10 @@
   color: #fff;
   background: rgba(0, 0, 0, 0.85);
 }
-.g-simple-overlay .simple-container {
+.simple-overlay.simple-hide {
+  display: none;
+}
+.simple-overlay .simple-container {
   position: relative;
   width: 100%;
   max-width: 100%;
@@ -39,10 +42,10 @@
   margin-bottom: auto;
   margin-top: auto;
 }
-.g-simple-overlay .simple-container strong {
+.simple-overlay .simple-container strong {
   color: #fff;
 }
-.g-simple-overlay .close {
+.simple-overlay .close {
   top: 1.25rem;
   right: 0.5rem;
   position: absolute;
@@ -56,26 +59,26 @@
   -ms-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
 }
-.g-simple-overlay .close:hover, .g-simple-overlay .close:focus, .g-simple-overlay .close:active {
+.simple-overlay .close:hover, .simple-overlay .close:focus, .simple-overlay .close:active {
   opacity: 1;
 }
-.g-simple-overlay.overlay-white {
+.simple-overlay.overlay-white {
   color: #000;
   background: rgba(255, 255, 255, 0.85);
 }
-.g-simple-overlay.overlay-white .simple-container strong {
+.simple-overlay.overlay-white .simple-container strong {
   color: #000;
 }
-.g-simple-overlay.overlay-white .close {
+.simple-overlay.overlay-white .close {
   color: #000;
 }
 
-.g-simple-overlay.background-image {
+.simple-overlay.background-image {
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.g-simple-overlay div {
+.simple-overlay div {
   width: 100%;
   text-align: center;
   font-size: 20px;

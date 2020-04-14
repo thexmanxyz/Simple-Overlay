@@ -3,7 +3,7 @@
 *   Simple Overlay - jQuery Plugin                    *
 *                                                     *
 *   Purpose: This project contains a simple and full  *
-*            configurable jQuery plugin which loads   *
+*            configurable jQuery plugin that loads    *
 *            a cookie-controlled overlay on a page    *
 *            which can also only be shown once        *
 *            within a specific period. The loading    *
@@ -93,6 +93,7 @@
         style: 'black',
         containerId: 'simple-overlay',
         contentContainerClass: 'simple-container',
+        hideClass: 'simple-hide',
         content: '',
         clickEvents: {
             open: [],
@@ -115,7 +116,7 @@
                     var $ctn, $content, $closeBtn;
 
                     // build up HTML elements (container, content and close button)
-                    $ctn = $('<div>').attr('id', config.containerId).attr('style', 'display: none;').addClass('g-' + config.containerId);
+                    $ctn = $('<div>').attr('id', config.containerId).addClass(config.hideClass).addClass(config.containerId);
                     
                     // change style of overlay in dependence of set parameter
                     if(config.style.startsWith('w')) {
@@ -171,9 +172,12 @@
                                 + color + ',' + color + ',' + color + ',.6)),url(' + config.background + ');'
                 
             }
+			
+			// remove hide class to show overlay
+			$ctn.removeClass(config.hideClass);
             
-            // attach "display: block;" to show overlay and attach background if necessary
-            $ctn.attr('style', 'display: block;' + background);
+            // attach background if necessary
+            $ctn.attr('style', background);
 
             // callback after overlay shown
             config.afterOverlayOpen.call(config);
@@ -193,7 +197,7 @@
             config.beforeOverlayClose.call(config);
 
             // hide container
-            $('#' + config.containerId).attr('style', 'display: none;');
+            $('#' + config.containerId).addClass(config.hideClass);
 
             // check if cookie set and set it if not defined
             var cookie = config.getCookie();
