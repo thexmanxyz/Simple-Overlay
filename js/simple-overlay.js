@@ -69,6 +69,7 @@
     * overlayClose: Function which hides the overlay on close events (callback).
     * setCookie: Function which sets a cookie for the plugin (callback).
     * getCookie: Function to retrieve a cookie set by the plugin (callback).
+    * checkCookie: Function to determine whether the overlay should be shown or not (callback).
     * triggerOpen: Function to define overlay open events by a given flag (callback).
     * triggerCookieOpen: Function to define overlay cookie-dependent open events (callback).
     * triggerAlwaysOpen: Function to define overlay always open events (callback).
@@ -107,6 +108,7 @@
             expiry: 30,
         },
 
+        // attach HTML container and markup to DOM
         attachContainer: function() {
 
             // callback before container attached
@@ -139,6 +141,7 @@
             config.afterAttachContainer.call(config);
         },
         
+        // determine whether overlay should be shown on initalization or not
         initializeOpen: function() {
     
             // show overlay only when required
@@ -153,6 +156,7 @@
             }
         },
 
+        // show overlay without cookie check
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
         overlayOpen: function () {
             var $ctn = $('#' + config.containerId);
@@ -174,9 +178,9 @@
                                 + color + ',' + color + ',' + color + ',.6)),url(' + config.background + ');'
                 
             }
-			
-			// remove hide class to show overlay
-			$ctn.removeClass(config.hideClass);
+            
+            // remove hide class to show overlay
+            $ctn.removeClass(config.hideClass);
             
             // attach background if necessary
             $ctn.attr('style', background);
@@ -185,15 +189,14 @@
             config.afterOverlayOpen.call(config);
         },
 
+        // show overlay in dependence of cookie check
         overlayOpenCheck: function() {
-            var cookie = config.getCookie();
-			
-			// open overlay when a cookie exists, old cookie exists and/or cookie revision increased
-            if (cookie == '' || (cookie == 'true' && config.revision > 0) || (parseInt(cookie) < config.revision)) {
+            if (config.checkCookie(config.getCookie())) {
                 config.overlayOpen();
             }
         },
 
+        // close overlay and set cookie if necessary
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
         overlayClose: function() {
 
@@ -203,11 +206,18 @@
             // hide container
             $('#' + config.containerId).addClass(config.hideClass);
 
-            // update cookie when closing overlay
-            config.setCookie();
+            // update cookie if condition if met when closing overlay
+            if (config.checkCookie(config.getCookie())) {  
+                config.setCookie();
+            }
 
             // callback after overlay hidden
             config.afterOverlayClose.call(config);
+        },
+        
+        // check if cookie is set, old cookie exists and/or cookie revision increased
+        checkCookie: function(cookie) {
+            return cookie == '' || (cookie == 'true' && config.revision > 0) || (parseInt(cookie) < config.revision);
         },
 
         // set a cookie with specific value and expiry (in days)

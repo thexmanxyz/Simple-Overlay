@@ -59,6 +59,7 @@ The plugin can be easily configured during the initialization and the following 
 - `overlayClose: function(){ ... },` | Function which hides the overlay on close events (callback).
 - `setCookie: function(){ ... },` | Function which sets a cookie for the plugin (callback).
 - `getCookie: function(){ ... },` | Function to retrieve a cookie set by the plugin (callback).
+- `checkCookie: function(){ ... },`| Function to determine whether the overlay should be shown or not (callback).
 - `triggerOpen: function(always){ ... },` | Function to define overlay open events by a given flag (callback).
 - `triggerCookieOpen: function(){ ... },` | Function to define overlay cookie-dependent open events (callback).
 - `triggerAlwaysOpen: function(){ ... },` | Function to define overlay always open events (callback).
