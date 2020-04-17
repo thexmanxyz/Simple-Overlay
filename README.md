@@ -6,7 +6,7 @@ This project contains a simple and full configurable jQuery plugin that loads a 
 * jQuery core library
 
 ## Download / Installation
-1. [Download v1.0.1](https://github.com/thexmanxyz/Simple-Overlay/archive/v1.0.1.zip) of Simple Overlay
+1. [Download v1.0.2](https://github.com/thexmanxyz/Simple-Overlay/archive/v1.0.1.zip) of Simple Overlay
 2. Extract the files and copy them to your website folder
 3. Define the CSS and JS resource files in your HTML page. You can also place the `<script>` tag after your `<body>` content. Basic resource import example:
    * **JS:**
@@ -44,6 +44,7 @@ The plugin can be easily configured during the initialization and the following 
 - `containerId: 'simple-overlay',` | The id used for the overlay container during initialization and identification.
 - `contentContainerClass: 'simple-container',` | The class attached to the content container.
 - `content: '',` | The HTML appended to the content container. This is the text shown on the overlay.
+- `revision: 0,` | The current overlay revision. If you want to reset the overlay state increase the revision by one.
 - `clickEvents: {` | Click events attachable by CSS selectors for different operations.
     - `open: [],` | Additional selectors used for click events that cookie-dependent open the overlay.
     - `alwaysOpen: [],` | Additional selectors used for click events that always open the overlay.
@@ -89,7 +90,7 @@ Sometimes you may want that the overlay is triggered by a certain click event an
 
 ```Javascript
 $('body').simpleOverlay({
-  content: 'I am demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!',
   clickEvent: {
     open: ['.your_selector']
   }
@@ -102,7 +103,7 @@ In the above example the overlay will only be shown on click when the user not a
 $('body').simpleOverlay({
   /* checkOnInit: false, // you can omit the cookie check on init as well */
   /* openOnInit: false, // or you can completely hide the overlay on init */
-  content: 'I am demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!',
   clickEvent: {
     alwaysOpen: ['.your_selector']
   }
@@ -113,10 +114,19 @@ The code comments demonstrate how you can control the initialization behavior of
 
 ```Javascript
 $('body').simpleOverlay({
-  content: 'I am demonstrating the overlay content!'
+  content: 'I am demonstrating the overlay content!',
   cookie: {
     expiry: 7
   }
+});
+```
+
+When you want to reset the expiry duration once, simply increase the overlay `revision` by one. E.g. the default value is `0` and increasing the revision to `1` will show the overlay again even when the cookie has not yet expired. The cookie will simply be renewed to it's expiry duration.
+
+```Javascript
+$('body').simpleOverlay({
+  content: 'I am demonstrating the overlay content!',
+  revision: 1
 });
 ```
 

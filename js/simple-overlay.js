@@ -56,6 +56,7 @@
     * containerId: The id used for the overlay container during initialization and identification.
     * contentContainerClass: The class attached to the content container.
     * content: The HTML appended to the content container. This is the text shown on the overlay.
+    * revision: The current overlay revision. If you want to reset the overlay state increase the revision by one.
     * clickEvents.open: Additional selectors used for click events that cookie-dependent open the overlay.
     * clickEvents.alwaysOpen: Additional selectors used for click events that always open the overlay.
     * clickEvents.close: Additional selectors used for click events that close the overlay.
@@ -95,6 +96,7 @@
         contentContainerClass: 'simple-container',
         hideClass: 'simple-hide',
         content: '',
+        revision: 0,
         clickEvents: {
             open: [],
             alwaysOpen: [],
@@ -185,7 +187,9 @@
 
         overlayOpenCheck: function() {
             var cookie = config.getCookie();
-            if (cookie == '') {  
+			
+			// open overlay when a cookie exists, old cookie exists and/or cookie revision increased
+            if (cookie == '' || (cookie == 'true' && config.revision > 0) || (parseInt(cookie) < config.revision)) {
                 config.overlayOpen();
             }
         },
@@ -199,11 +203,8 @@
             // hide container
             $('#' + config.containerId).addClass(config.hideClass);
 
-            // check if cookie set and set it if not defined
-            var cookie = config.getCookie();
-            if (cookie == '') {  
-                config.setCookie();
-            }
+            // update cookie when closing overlay
+            config.setCookie();
 
             // callback after overlay hidden
             config.afterOverlayClose.call(config);
@@ -223,7 +224,7 @@
             expires = "expires="+d.toUTCString();
 
             // set cookie with expires
-            document.cookie = config.cookie.name + '=true;' + expires + ';path=/';
+            document.cookie = config.cookie.name + '=' + config.revision + ';' + expires + ';path=/';
 
             // callback after cookie set
             config.afterSetCookie.call(config);
