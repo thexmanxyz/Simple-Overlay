@@ -9,15 +9,15 @@ This project contains a simple and full configurable jQuery plugin that loads a 
 1. [Download v1.0.2](https://github.com/thexmanxyz/Simple-Overlay/archive/v1.0.2.zip) of Simple Overlay
 2. Extract the files and copy them to your website folder
 3. Define the CSS and JS resource files in your HTML page. You can also place the `<script>` tag after your `<body>` content. Basic resource import example:
-   * **JS:**
+   * **JS (< 4kB):**
    ```HTML
    <script src="js/simple-overlay.min.js"></script>
    ```
-   * **CSS:**
+   * **CSS (~ 2kB):**
    ```HTML
    <link href="css/simple-overlay.min.css" rel="stylesheet">
    ```
-   * **SCSS:** if you want to use SCSS instead
+   * **SCSS(~ 2kB):** if you want to use SCSS instead
    ```SCSS
    @import 'simple-overlay.scss';
    ```
@@ -52,32 +52,31 @@ The plugin can be easily configured during the initialization and the following 
 - `cookie {` | Cookie settings used for overlay control.
     - `name: 'simple-overlay',` | This parameters contains the name used for creating the plugin cookie.
     - `expiry: 30},` | This parameters defines the expiry time (in days) for a cookie set by the plugin.
-- `attachContainer: function(){ ... },` | Function which automatically attaches the overlay container (callback).
-- `initializeOpen: function(){ ... },` | Function which controls the overlay auto loading behavior (callback).
-- `overlayOpen: function(){ ... },` | Function which shows the overlay on open events (callback).
-- `overlayOpenCheck: function(){ ... },` | Function which shows the overlay cookie-dependent on open events (callback).
-- `overlayClose: function(){ ... },` | Function which hides the overlay on close events (callback).
-- `setCookie: function(){ ... },` | Function which sets a cookie for the plugin (callback).
-- `getCookie: function(){ ... },` | Function to retrieve a cookie set by the plugin (callback).
-- `checkCookie: function(){ ... },`| Function to determine whether the overlay should be shown or not (callback).
-- `triggerOpen: function(always){ ... },` | Function to define overlay open events by a given flag (callback).
-- `triggerCookieOpen: function(){ ... },` | Function to define overlay cookie-dependent open events (callback).
-- `triggerAlwaysOpen: function(){ ... },` | Function to define overlay always open events (callback).
-- `triggerClose: function(){ ... },` | Function to define overlay close events (callback).
-- `triggerCustom: function() { ... },` | Function to define custom trigger events (callback).
-- `beforeAttachContainer: function(){ ... },` | Function called before container attached (callback).
-- `beforeOverlayOpen: function(){ ... },` | Function called before overlay shown (callback).
-- `beforeOverlayClose: function(){ ... },` | Function called before overlay hidden (callback).
-- `beforeSetCookie: function(){ ... },` | Function called before cookie set (callback).
-- `beforeGetCookie: function(){ ... },` | Function called before cookie retrieved (callback).
-- `afterAttachContainer: function(){ ... },` |Function called after container attached (callback).
-- `afterOverlayOpen: function(){ ... },` | Function called after overlay shown (callback).
-- `afterOverlayClose: function(){ ... },` | Function called after overlay hidden (callback).
-- `afterSetCookie: function(){ ... },` | Function called after cookie set (callback).
-- `afterGetCookie: function(){ ... }` | Function called after cookie retrieved (callback).
+- `attachContainer: function(){ ... },` | Handles the DOM attachment of the overlay container.
+- `initializeOpen: function(){ ... },` | Controls the overlay auto loading behavior.
+- `openOverlay: function(){ ... },` | Shows the overlay (e.g. on open events).
+- `openOverlayCheck: function(){ ... },` | Shows the overlay cookie-dependent (e.g. on open events).
+- `closeOverlay: function(){ ... },` | Hides the overlay (e.g. on close events).
+- `setCookie: function(){ ... },` | Sets a cookie for the plugin.
+- `getCookie: function(){ ... },` | Retrieves a cookie set by the plugin.
+- `checkCookie: function(){ ... },`| Determines whether the overlay should be shown or not.
+- `triggerOpen: function(always){ ... },` | Defines overlay open events by a given flag.
+- `triggerCookieOpen: function(){ ... },` | Defines overlay cookie-dependent open events.
+- `triggerAlwaysOpen: function(){ ... },` | Defines overlay always open events.
+- `triggerClose: function(){ ... },` | Defines overlay close events.
+- `triggerCustom: function() { ... },` | Defines custom trigger events.
+- `beforeAttachContainer: function(){ ... },` | Called before container attached.
+- `beforeOverlayOpen: function(){ ... },` | Called before overlay shown.
+- `beforeOverlayClose: function(){ ... },` | Called before overlay hidden.
+- `beforeSetCookie: function(){ ... },` | Called before cookie set.
+- `beforeGetCookie: function(){ ... },` | Called before cookie retrieved.
+- `afterAttachContainer: function(){ ... },` | Called after container attached.
+- `afterOverlayOpen: function(){ ... },` | Called after overlay shown.
+- `afterOverlayClose: function(){ ... },` | Called after overlay hidden.
+- `afterSetCookie: function(){ ... },` | Called after cookie set.
+- `afterGetCookie: function(){ ... }` | Called after cookie retrieved.
 
 ### Usage / Examples
-
 The following example demonstrates the automatic attachment of the necessary HTML markup. In this case you can omit the [manual insertion](https://github.com/thexmanxyz/Simple-Overlay#manual-container-attachment) of HTML markup completely. Everything is handled by the plugin.
 
 ```Javascript
@@ -161,7 +160,6 @@ $('body').simpleOverlay({
 ```
 
 ### Manual Container Background
-
 When necessary, the overlay background image can also be defined or customized in your stylesheet with the following CSS rules:
 
 ```CSS
@@ -175,7 +173,6 @@ When necessary, the overlay background image can also be defined or customized i
 But remember that in this case it is not necessary to initialize the plugin with the `background` parameter.
 
 ## Features
-
 * simple configurable jQuery overlay plugin
 * control over HTML markup
 * multiple initialization modes
@@ -198,7 +195,6 @@ None
 * [jQuery](https://jquery.com/)
 
 ## Credits
-
 Thanks to the jQuery team for this [great plugin tutorial](https://learn.jquery.com/plugins/basic-plugin-creation/).
 
 Thanks to [w3schools.com](https://www.w3schools.com) for providing the following two usesful tutorials on [overlays](https://www.w3schools.com/howto/howto_css_overlay.asp) and [cookies](https://www.w3schools.com/js/js_cookies.asp).

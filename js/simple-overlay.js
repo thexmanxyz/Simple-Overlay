@@ -62,29 +62,29 @@
     * clickEvents.close: Additional selectors used for click events that close the overlay.
     * cookie.name: This parameters contains the name used for creating the plugin cookie.
     * cookie.expiry: This parameters defines the expiry time (in days) for a cookie set by the plugin.
-    * attachContainer: Function which automatically attaches the overlay container (callback).
-    * initializeOpen: Function which controls the overlay auto loading behavior (callback).
-    * overlayOpen: Function which shows the overlay on open events (callback).
-    * overlayOpenCheck: Function which shows the overlay cookie-dependent on open events (callback).
-    * overlayClose: Function which hides the overlay on close events (callback).
-    * setCookie: Function which sets a cookie for the plugin (callback).
-    * getCookie: Function to retrieve a cookie set by the plugin (callback).
-    * checkCookie: Function to determine whether the overlay should be shown or not (callback).
-    * triggerOpen: Function to define overlay open events by a given flag (callback).
-    * triggerCookieOpen: Function to define overlay cookie-dependent open events (callback).
-    * triggerAlwaysOpen: Function to define overlay always open events (callback).
-    * triggerClose: Function to define overlay close events (callback).
-    * triggerCustom: Function to define custom trigger events (callback).
-    * beforeAttachContainer: Function called before container attached (callback).
-    * beforeOverlayOpen: Function called before overlay shown (callback).
-    * beforeOverlayClose: Function called before overlay hidden (callback).
-    * beforeSetCookie: Function called before cookie set (callback).
-    * beforeGetCookie: Function called before cookie retrieved (callback).
-    * afterAttachContainer: Function called after container attached (callback).
-    * afterOverlayOpen: Function called after overlay shown (callback).
-    * afterOverlayClose: Function called after overlay hidden (callback).
-    * afterSetCookie: Function called after cookie set (callback).
-    * afterGetCookie: Function called after cookie retrieved (callback).
+	* attachContainer: Handles the DOM attachment of the overlay container.
+    * initializeOpen: Controls the overlay auto loading behavior.
+    * openOverlay: Shows the overlay (e.g. on open events).
+    * openOverlayCheck: Shows the overlay cookie-dependent (e.g. on open events).
+    * closeOverlay: Hides the overlay (e.g. on close events).
+    * setCookie: Sets a cookie for the plugin.
+    * getCookie: Retrieves a cookie set by the plugin.
+    * checkCookie: Determines whether the overlay should be shown or not.
+    * triggerOpen: Defines overlay open events by a given flag.
+    * triggerCookieOpen: Defines overlay cookie-dependent open events.
+    * triggerAlwaysOpen: Defines overlay always open events.
+    * triggerClose: Defines overlay close events.
+    * triggerCustom: Defines custom trigger events.
+    * beforeAttachContainer: Called before container attached.
+    * beforeOverlayOpen: Called before overlay shown.
+    * beforeOverlayClose: Called before overlay hidden.
+    * beforeSetCookie: Called before cookie set.
+    * beforeGetCookie: Called before cookie retrieved.
+    * afterAttachContainer: Called after container attached.
+    * afterOverlayOpen: Called after overlay shown.
+    * afterOverlayClose: Called after overlay hidden.
+    * afterSetCookie: Called after cookie set.
+    * afterGetCookie: Called after cookie retrieved.
     *
     */
     $.fn.simpleOverlay.defaults = {
@@ -149,16 +149,16 @@
                 
                 // should overlay be shown in dependence of cookie or not
                 if(config.checkOnInit) {
-                    config.overlayOpenCheck();
+                    config.openOverlayCheck();
                 } else {
-                    config.overlayOpen();
+                    config.openOverlay();
                 }
             }
         },
 
         // show overlay without cookie check
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
-        overlayOpen: function () {
+        openOverlay: function () {
             var $ctn = $('#' + config.containerId);
             var color = 0;
             var background = '';
@@ -190,15 +190,15 @@
         },
 
         // show overlay in dependence of cookie check
-        overlayOpenCheck: function() {
+        openOverlayCheck: function() {
             if (config.checkCookie(config.getCookie())) {
-                config.overlayOpen();
+                config.openOverlay();
             }
         },
 
         // close overlay and set cookie if necessary
         // credits @ https://www.w3schools.com/howto/howto_css_overlay.asp
-        overlayClose: function() {
+        closeOverlay: function() {
 
             // callback before overlay hidden
             config.beforeOverlayClose.call(config);
@@ -279,9 +279,9 @@
 
                     // decide whether overlay should be shown in dependence of cookie or not
                     if(always) {
-                        config.overlayOpen();
+                        config.openOverlay();
                     } else {
-                        config.overlayOpenCheck();
+                        config.openOverlayCheck();
                     }
                 });
             }
@@ -310,7 +310,7 @@
 
             // define on click event which closes overlay
             $(selectors).click(function() {
-                config.overlayClose();
+                config.closeOverlay();
             });
         },
         
