@@ -51,6 +51,7 @@
     * attach: Defines whether the overlay HTML should be automatically attached on plugin initialization.
     * openOnInit: Defines whether the overlay should be shown on plugin initialization.
     * checkOnInit: Defines whether the cookie should be checked before the overlay is shown.
+    * closeOnEsc: Defines if a key press on ESC should close the overlay or not.
     * background: Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
     * style: Set the color style for the overlay. Supported values are 'black' / 'b' or 'white' / 'w'.
     * containerId: The id used for the overlay container during initialization and identification.
@@ -62,7 +63,7 @@
     * clickEvents.close: Additional selectors used for click events that close the overlay.
     * cookie.name: This parameters contains the name used for creating the plugin cookie.
     * cookie.expiry: This parameters defines the expiry time (in days) for a cookie set by the plugin.
-	* attachContainer: Handles the DOM attachment of the overlay container.
+    * attachContainer: Handles the DOM attachment of the overlay container.
     * initializeOpen: Controls the overlay auto loading behavior.
     * openOverlay: Shows the overlay (e.g. on open events).
     * openOverlayCheck: Shows the overlay cookie-dependent (e.g. on open events).
@@ -91,6 +92,7 @@
         attach: true,
         openOnInit: true,
         checkOnInit: true,
+        closeOnEsc: true,
         background: '',
         style: 'black',
         containerId: 'simple-overlay',
@@ -312,8 +314,17 @@
             $(selectors).click(function() {
                 config.closeOverlay();
             });
+
+            // define on keydown event which closes overlay
+            if(config.closeOnEsc) {
+                $(document).on('keydown', function(event) {
+                    if (event.key == "Escape") {
+                        config.closeOverlay();
+                    }
+                });
+            }
         },
-        
+
         // add custom trigger events
         triggerCustom: function() {},
 

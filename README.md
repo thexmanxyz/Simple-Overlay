@@ -39,6 +39,7 @@ The plugin can be easily configured during the initialization and the following 
 - `attach: true,` | Defines whether the overlay HTML should be automatically attached on plugin initialization.
 - `openOnInit: true,` | Defines whether the overlay should be shown on plugin initialization.
 - `checkOnInit: true,` | Defines whether the cookie should be checked before the overlay is shown.
+- `closeOnEsc: true,` | Defines if a key press on ESC should close the overlay or not.
 - `background: '',` | Background image used for the overlay. Preferably a svg image which can be scaled to screensize.
 - `style: 'black',` | Set the color style for the overlay. Supported values are `black` / `b` or `white` / `w`.
 - `containerId: 'simple-overlay',` | The id used for the overlay container during initialization and identification.
